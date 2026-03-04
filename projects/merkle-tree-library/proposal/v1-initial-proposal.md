@@ -9,15 +9,28 @@
 
 ## Problem Statement
 
-Merkle trees are fundamental to blockchain data structures, but existing Rust libraries lack comprehensive features or optimisation. No single library provides binary Merkle trees, sparse Merkle trees, and Merkle Patricia Tries under a unified API. Developers must combine multiple incompatible libraries, systematic benchmarks are absent, and research-backed optimisations (adaptive restructuring, node batching, batch updates) remain unintegrated into practical tooling.
+The Rust ecosystem for Merkle trees is currently too fragmented to keep up with the demands of modern blockchain scaling. Right now, there is no single, reliable library that covers binary, sparse, and Patricia trees in one place. Instead, developers are forced to build a patchwork of niche tools, using something like rs-merkle (Suprunchuk, n.d.) for basic trees while pulling in merkle-tree-rs (Marvellous, n.d.) just for specific Ethereum tasks. Without a unified interface, the codebase ends up as a messy patchwork that's a nightmare to maintain, usually leading to compatibility clashes or breaking changes when trying to get different libraries to play nicely in production.
+There is also a deep gap between what researchers are discovering and the tools actually available in a developer's IDE. While academic papers show that techniques such as node batching and adaptive restructuring can boost performance by up to 50% (Ma et al., 2023; Ouvrard, 2018), these breakthroughs rarely make their way into functional libraries. This problem is made worse by the total lack of systematic benchmarking data. Without a clear way to compare proof sizes and construction speeds across hash functions, such as SHA-256 versus BLAKE3 (Pun et al., 2024), developers are essentially guessing which configuration works best for their specific hardware or network. 
+This project fixes those issues by building a high-performance library that brings all these Merkle variants together under one clean API. By baking research-backed optimizations, like incremental updates and a "pluggable" hash interface, directly into the code, we can finally move away from the current mess of fragmented dependencies. More importantly, the project includes a comprehensive benchmarking suite that provides developers with the hard data they need to make informed decisions, effectively turning academic theory (Kuznetsov et al., 2024a; Aumasson et al., 2013) into a practical tool for the blockchain community.
 
-## Objectives
 
-1. Design and implement a unified trait-based architecture in Rust supporting binary, sparse, and Patricia Merkle trees
-2. Develop optimised implementations with incremental updates, node batching, and efficient proof generation/verification
-3. Implement pluggable hash function support (SHA-256, Keccak-256, BLAKE2) via compile-time trait specialisation
-4. Create a comprehensive Criterion benchmarking suite comparing against existing libraries (rs-merkle, merkle_light)
-5. Publish on crates.io with documentation and a research paper analysing performance tradeoffs
+## Aim and Objectives
+
+### Aim
+My project aims to develop a high-performance, unified Merkle tree library for the Rust ecosystem. By consolidating binary, sparse, and Patricia variants under a single, cohesive API, the research provides a standardized toolset that allows developers to implement and benchmark decentralized data structures effectively across diverse blockchain environments. 
+
+### Objectives
+
+To achieve this objective, the project has been structured into four main phases:
+
+1. **Design** a unified, trait-based library architecture in Rust to provide a consistent API across binary, sparse, and Patricia-Merkle-tree variants while adhering to zero-cost abstraction principles.
+
+2. **Develop** high-performance tree variants integrated with a modular cryptographic interface, supporting pluggable hash functions (SHA-256, Keccak-256, BLAKE3) and research-backed optimizations like node batching and incremental updates.
+
+3. **Evaluate** the library's efficiency through systematic benchmarking against existing solutions like rs-merkle and merkle-light, specifically measuring construction latency, proof size, and memory consumption using the Criterion framework.
+
+4. **Publish** the finalized implementation as an open-source crate, along with comprehensive documentation and a comparative analysis of tree-type trade-offs, to support the wider blockchain developer community.
+
 
 ## Proposed Solution
 
@@ -49,12 +62,12 @@ Modules: `merkle-core`, `merkle-binary`, `merkle-sparse`, `merkle-patricia`, `me
 
 | Phase | Weeks | Deliverables |
 |-------|-------|-------------|
-| Core Infrastructure | 1-3 | Traits, hash abstractions, CI/CD |
-| Binary Merkle Tree | 4-6 | Full binary tree with proofs |
-| Sparse Merkle Tree | 7-9 | SMT with node batching |
-| Merkle Patricia Trie | 10-12 | MPT with RLP encoding |
-| Benchmarking & Optimisation | 13-15 | Criterion suite, profiling |
-| Documentation & Publication | 16-18 | crates.io, paper, report |
+| Core Infrastructure | 1-1 | Traits, hash abstractions, CI/CD |
+| Binary Merkle Tree | 3-4 | Full binary tree with proofs |
+| Sparse Merkle Tree | 5-6 | SMT with node batching |
+| Merkle Patricia Trie | 7-8 | MPT with RLP encoding |
+| Benchmarking & Optimisation | 9-10 | Criterion suite, profiling |
+| Documentation & Publication | 11-12 | crates.io, paper, report |
 
 ---
 
@@ -62,4 +75,4 @@ Modules: `merkle-core`, `merkle-binary`, `merkle-sparse`, `merkle-patricia`, `me
 
 | Date | Version | Changes |
 |------|---------|---------|
-| 2026-02-12 | v1.0 | Initial proposal — not yet by my school supervisor |
+| 2026-02-12 | v1.0 | Initial proposal — Approved |

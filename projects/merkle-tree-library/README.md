@@ -50,12 +50,12 @@ merkle-tree-library/
 
 | Phase | Weeks | Status |
 |-------|-------|--------|
-| Core Infrastructure (traits, hashes, CI) | 1-3 | ⚪ Not Started |
-| Binary Merkle Tree | 4-6 | ⚪ Not Started |
-| Sparse Merkle Tree | 7-9 | ⚪ Not Started |
-| Merkle Patricia Trie | 10-12 | ⚪ Not Started |
-| Benchmarking & Optimisation | 13-15 | ⚪ Not Started |
-| Documentation & Publication | 16-18 | ⚪ Not Started |
+| Core Infrastructure (traits, hashes, CI) | 1-2 | ⚪ Not Started |
+| Binary Merkle Tree | 3-4 | ⚪ Not Started |
+| Sparse Merkle Tree | 5-6 | ⚪ Not Started |
+| Merkle Patricia Trie | 7-8 | ⚪ Not Started |
+| Benchmarking & Optimisation | 9-10 | ⚪ Not Started |
+| Documentation & Publication | 11-12 | ⚪ Not Started |
 
 ## Key References
 
